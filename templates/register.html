@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+    {% block content %}
+        <div class="content-section text-center">
+            <form class="mt-2 pb-3 bg-dark" method="POST">
+                <fieldset class = "form-group">
+                    <!-- {{ form.hidden_tag }} -->
+                    <legend>Join The Legends Here</legend>
+                    <div class = "form-group">
+                        {{ form.username (class="form-control form-control-lg text-center", placeholder="username") }}
+                    </div>
+                    <div class = "form-group">
+                        {{ form.email (class="form-control form-control-lg mt-2 text-center", placeholder="email") }}
+                    </div>
+                    <div class = "form-group">
+                        {{ form.password (class="form-control form-control-lg mt-2 text-center", placeholder="password") }}
+                    </div>
+                    <div class = "form-group">
+                        {{ form.confirm_password (class="form-control form-control-lg mt-2 text-center", placeholder="confirm_password") }}
+                    </div>
+                    <div class = "form-group">
+                        {{ form.submit(class = "btn btn-outline-info mt-3 px-4") }}
+                    </div>
+                </fieldset>
+            </form>
+        </div>
+        
+    {% endblock %}
