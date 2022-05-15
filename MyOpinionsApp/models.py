@@ -1,5 +1,5 @@
 from datetime import datetime
-from OpinionsApp import db
+from MyOpinionsApp import db
 
 class User(db.Model):
     __tablename__ = 'user'

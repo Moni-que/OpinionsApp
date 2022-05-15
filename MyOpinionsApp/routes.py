@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
-from OpinionsApp import app
-from OpinionsApp.models import User, Post
-from OpinionsApp.forms import RegistrationForm, LoginForm
+from MyOpinionsApp import app
+from MyOpinionsApp.models import User, Post
+from MyOpinionsApp.forms import RegistrationForm, LoginForm
 
 posts = [
 
