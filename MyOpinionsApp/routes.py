@@ -1,5 +1,6 @@
+import email
 from flask import render_template, url_for, flash, redirect, request
-from MyOpinionsApp import app
+from MyOpinionsApp import app, db, bcrypt
 from MyOpinionsApp.models import User, Post
 from MyOpinionsApp.forms import RegistrationForm, LoginForm
 
@@ -33,8 +34,12 @@ def about():
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
-        flash(f'Account was successfully created for {form.username.data}!', 'success')
-        return redirect(url_for('home'))
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        user = User(username = form.username.data, email = form.email.data, password = hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Account was successfully created! ,You can now proceed to login', 'success')
+        return redirect(url_for('login'))
     return render_template('register.html', title = 'Register', form = form)
 
 @app.route("/login", methods=['GET', 'POST'])
