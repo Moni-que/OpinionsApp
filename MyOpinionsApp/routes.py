@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from MyOpinionsApp import app, db, bcrypt
 from MyOpinionsApp.models import User, Post
-from MyOpinionsApp.forms import RegistrationForm, LoginForm
+from MyOpinionsApp.forms import RegistrationForm, LoginForm, UpdateForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -67,5 +67,6 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
+    form = UpdateForm()
     image_path = url_for('static', filename = 'css/images' + current_user.image_path)
-    return render_template('account.html', title = 'Account', image_path = image_path)
+    return render_template('account.html', title = 'Account', image_path = image_path, form = form)
