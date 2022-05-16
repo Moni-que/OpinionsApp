@@ -3,7 +3,7 @@
         <div class="content-section text-center">
             <form class="mt-2 pb-3 w-75 " method="POST">
                 <fieldset class = "form-group">
-                    <!-- {{ form.hidden_tag }} -->
+                    {{ form.hidden_tag() }}
                     <legend>Join The Legends Here</legend>
                     <div class = "form-group">
                         {% if form.username.errors %} 
