@@ -3,7 +3,7 @@ import os
 from flask import render_template, url_for, flash, redirect, request
 from MyOpinionsApp import app, db, bcrypt
 from MyOpinionsApp.models import User, Post
-from MyOpinionsApp.forms import RegistrationForm, LoginForm, UpdateForm
+from MyOpinionsApp.forms import RegistrationForm, LoginForm, UpdateForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 posts = [
@@ -92,3 +92,12 @@ def account():
         form.email.data ==current_user.email
     image_path = url_for('static', filename = 'static/css/images' + current_user.image_path)
     return render_template('account.html', title = 'Account', image_path = image_path, form = form)
+
+@app.route("/post/new", methods = ['GET', 'POST'])
+@login_required
+def new_post():
+    form = PostForm()
+    if form.validate_on_submit():
+        flash('Your post has been created', 'success')
+        return redirect(url_for('home'))
+    return render_template('post.html', title = 'New Post', form = form)
