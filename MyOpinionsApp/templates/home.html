@@ -2,6 +2,7 @@
 
 {% block content %}
     {% for post in posts %}
+    <img class="rounded-circle " src="{{ url_for('static', filename = 'css/images' + post.author.image_path) }}">
     <div class="card mt-5">
         <div class="card-header">
             <h3>{{ post.title }}</h3>
@@ -10,7 +11,7 @@
             <p>{{ post.content }}</p>
         </div>
         <div class="card-footer">
-            <span>Posted by <strong>{{ post.author }}</strong> </span> <span>{{ post.date_posted }}</span>
+            <span>Posted by <strong>{{ post.author.username }}</strong> </span> <span>{{ post.date_posted.strftime('%Y-%m-%d') }}</span>
         </div>
     </div>
     {% endfor %}
