@@ -2,7 +2,7 @@ from flask import render_template, url_for, flash, redirect, request
 from MyOpinionsApp import app, db, bcrypt
 from MyOpinionsApp.models import User, Post
 from MyOpinionsApp.forms import RegistrationForm, LoginForm
-from flask_login import login_user
+from flask_login import login_user, current_user
 
 posts = [
 
@@ -32,6 +32,8 @@ def about():
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
@@ -44,6 +46,8 @@ def register():
 
 @app.route("/login", methods=['GET', 'POST'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email = form.email.data).first()
