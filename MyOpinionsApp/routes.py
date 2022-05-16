@@ -1,8 +1,8 @@
-import email
 from flask import render_template, url_for, flash, redirect, request
 from MyOpinionsApp import app, db, bcrypt
 from MyOpinionsApp.models import User, Post
 from MyOpinionsApp.forms import RegistrationForm, LoginForm
+from flask_login import login_user
 
 posts = [
 
@@ -46,8 +46,9 @@ def register():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        if form.email.data == 'admin@gmail.com' and form.password.data == '12345':
-            flash('login successful', 'success')
+        user = User.query.filter_by(email = form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            login_user(user, remember = form.remember.data)
             return redirect(url_for('home'))
         else:
             flash('login unsuccessful', 'danger')
