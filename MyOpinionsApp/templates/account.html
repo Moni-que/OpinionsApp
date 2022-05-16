@@ -8,5 +8,38 @@
           <p class="text-secondary">{{ current_user.email }}</p>
         </div>
         </div>
+        <form class="mt-2 pb-3 w-75 " method="POST">
+            <fieldset class = "form-group">
+                <!-- {{ form.hidden_tag }} -->
+                <legend>My Account</legend>
+                <div class = "form-group">
+                    {% if form.username.errors %} 
+                        {{ form.username(class= "form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.username.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username (class="form-control form-control-lg ", placeholder="Username") }}
+                    {% endif %}
+                </div>
+                <div class = "form-group">
+                    {% if form.email.errors %} 
+                        {{ form.email(class= "form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email (class="form-control form-control-lg mt-2 ", placeholder="Email") }}
+                    {% endif %}
+                </div>
+                <div class = "form-group">
+                    {{ form.submit(class = "btn btn-outline-info mt-3 px-4") }}
+                </div>
+            </fieldset>
+        </form>
     </div>
 {% endblock %}
