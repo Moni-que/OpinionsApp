@@ -6,22 +6,7 @@ from MyOpinionsApp.models import User, Post
 from MyOpinionsApp.forms import RegistrationForm, LoginForm, UpdateForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 
-# posts = [
 
-#     {
-#         'author': 'shee',
-#         'title': 'first opinion',
-#         'content': 'firstcontent',
-#         'date_posted': '1 April 2018'
-#     },
-#     {
-#         'author': 'Kheshi',
-#         'title': 'second opinion',
-#         'content': 'secondcontent',
-#         'date_posted': '10 April 2018'
-#     }
-
-# ]
 
 @app.route("/")
 @app.route("/home")
@@ -29,9 +14,7 @@ def home():
     posts = Post.query.all()
     return render_template('home.html', posts = posts)
 
-@app.route("/about")
-def about():
-    return render_template('about.html', title = 'About')
+
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
@@ -71,7 +54,7 @@ def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/css/images/', picture_fn)
+    picture_path = os.path.join(app.root_path, 'static/images/', picture_fn)
     form_picture.save(picture_path)
     return picture_fn
 
@@ -91,7 +74,7 @@ def account():
     elif request.method == 'GET':
         form.username.data ==current_user.username
         form.email.data ==current_user.email
-    image_path = url_for('static', filename = 'static/css/images' + current_user.image_path)
+    image_path = url_for('static', filename = 'static/images' + current_user.image_path)
     return render_template('account.html', title = 'Account', image_path = image_path, form = form)
 
 @app.route("/post/new", methods = ['GET', 'POST'])
@@ -136,6 +119,6 @@ def delete_post(post_id):
     if post.author != current_user:
         abort(403)
     db.session.delete(post)
-    db.session.delete()
+    db.session.commit()
     flash('Post Deleted', 'success')
     return redirect(url_for('home'))
