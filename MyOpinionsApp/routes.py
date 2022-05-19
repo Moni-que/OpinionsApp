@@ -1,19 +1,28 @@
 import secrets
 import os
+import json
+import requests
 from flask import render_template, url_for, flash, redirect, request, abort
 from MyOpinionsApp import app, db, bcrypt
-from MyOpinionsApp.models import User, Post
+from MyOpinionsApp.models import User, Post, Quote
 from MyOpinionsApp.forms import RegistrationForm, LoginForm, UpdateForm, PostForm
 from flask_login import login_user, current_user, logout_user, login_required
 
 
+def get_quote():
+    url = 'http://quotes.stormconsultancy.co.uk/random.json'
+    req = requests.get(url)
+    data = req.json()
+    quote = Quote(data['quote'],data['author'])
+    return quote
 
 @app.route("/")
 @app.route("/home")
 def home():
+    quote = get_quote()
+    print(quote)
     posts = Post.query.all()
-    return render_template('home.html', posts = posts)
-
+    return render_template('home.html', posts = posts, randquote=quote)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -122,3 +131,5 @@ def delete_post(post_id):
     db.session.commit()
     flash('Post Deleted', 'success')
     return redirect(url_for('home'))
+
+
