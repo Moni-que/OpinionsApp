@@ -1,5 +1,9 @@
 # OpinionsApp
 
+### Screenshot of The App
+![Screenshot from 2022-05-20 18-50-23](https://user-images.githubusercontent.com/93192319/169565743-4d24c485-c0fe-4137-adf9-3d443574bd41.png)
+
+
 ### Table of Contents
 * Description
 * Technology Used
