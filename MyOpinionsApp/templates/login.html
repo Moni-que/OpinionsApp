@@ -1,10 +1,10 @@
 {% extends "base.html" %}
     {% block content %}
-        <div class="content-section text-center">
-            <form class="mt-2 pb-3 w-75 " method="POST">
+        <div class="content-section mt-5 text-center bg-light">
+            <form class="mt-2 px-3 pb-3 w-75 " method="POST">
                 <fieldset class = "form-group">
                     {{ form.hidden_tag() }}
-                    <legend>Login</legend>
+                    <legend class="text-light">LOGIN</legend>
                     <div class = "form-group">
                         {% if form.email.errors %} 
                             {{ form.email(class= "form-control form-control-lg is-invalid") }}
@@ -42,7 +42,7 @@
                 </fieldset>
             </form>
         </div>
-        <div class="text-center w-75">
+        <div class="text-light text-center w-75">
             <small>Need an account?<a class="mx-2" href="{{ url_for('register') }}">Sign up</a></small>
         </div>
     {% endblock %}
