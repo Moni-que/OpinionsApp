@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <img class="rounded-circle " src="{{ url_for('static', filename = 'css/images' + post.author.image_path) }}">
+    <!-- <img class="rounded-circle " src="{{ url_for('static', filename = 'css/images' + post.author.image_path) }}"> -->
     <div class="card mt-5">
         <div class="card-header">
             <h3>{{ post.title }}</h3>
@@ -15,24 +15,8 @@
         {% if post.author == current_user %}
             <div>
                 <a class="btn btn-success" href="{{ url_for('update_post', post_id = post.id) }}">Update</a>
-                <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal" >Delete</button>
+                <a class="btn btn-danger btn-sm mx-2 text-center" href="{{url_for('delete_post',post_id=post.id)}}">Delete</a>
             </div>
         {% endif %}
     </div>
-    <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="deleteModalLabel">Delete Post?</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <form method = 'POST' action="{{ url_for('delete_post', post_id = post.id) }}">
-                  <input class="btn btn-danger" value="Delete" type="submit">
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
 {% endblock%}
